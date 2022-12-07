@@ -1,5 +1,6 @@
 const fs = require("fs");
-
+const classCart = require("./cartClass.js");
+const CartClass = new classCart();
 module.exports = class Products {
   _UBICATION = "./data/products.json";
 
@@ -26,14 +27,21 @@ module.exports = class Products {
           this._UBICATION,
           JSON.stringify(productsClean, null, 2)
         );
-        return productsClean;
+        return {
+          message: "Producto agregado con exito",
+          product: product,
+        };
       } else {
-        return false;
+        return {
+          error: 0,
+          description: "El producto ingresado no es correcto",
+        };
       }
     } catch (error) {
       console.log(error);
     }
   }
+
   async update(id, updateProduct) {
     try {
       const products = await fs.promises.readFile(this._UBICATION, "utf-8");
@@ -63,14 +71,18 @@ module.exports = class Products {
           this._UBICATION,
           JSON.stringify(updateProducts, null, 2)
         );
-        return updateProducts;
+        return {
+          message: "Producto actualizado con exito",
+          products: updateProduct,
+        };
       } else {
-        return false;
+        return { error: 0, description: "Producto no encontrado" };
       }
     } catch (error) {
       console.log(error);
     }
   }
+
   async delete(id) {
     const products = await fs.promises.readFile(this._UBICATION, "utf-8");
     let productsClean = JSON.parse(products);
@@ -83,9 +95,13 @@ module.exports = class Products {
         this._UBICATION,
         JSON.stringify(updateProducts, null, 2)
       );
-      return updateProducts;
+      return {
+        message: "Producto eliminado con exito",
+        id: id,
+        products: updateProducts,
+      };
     } else {
-      return false;
+      return { error: 0, description: "Producto no encontrado" };
     }
   }
   async find(id) {
@@ -93,9 +109,18 @@ module.exports = class Products {
     let productsClean = JSON.parse(products);
     const findProduct = productsClean.find((product) => product.id == id);
     if (findProduct) {
-      return findProduct;
+      return { message: "Producto encontrado con exito", product: findProduct };
     } else {
-      return false;
+      return { error: 0, description: "Producto no encontrado" };
     }
+  }
+
+  async insertProductInCart(idCart, idProduct) {
+    const products = await fs.promises.readFile(this._UBICATION, "utf-8");
+    let productsClean = JSON.parse(products);
+    const product = productsClean.find((product) => product.id == idProduct.id);
+
+    const result = CartClass.insertProduct(idCart, product);
+    return result;
   }
 };
