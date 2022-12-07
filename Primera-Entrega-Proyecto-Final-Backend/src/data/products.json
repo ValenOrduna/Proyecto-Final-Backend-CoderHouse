@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "timestamp": 1670377072012,
+    "name": "Iphone14",
+    "description": "El mejor celular",
+    "photo": "www.iphone.com/imagen",
+    "price": 240000,
+    "stock": 50
+  },
+  {
+    "id": 2,
+    "timestamp": 1670377073261,
+    "name": "Iphone14",
+    "description": "El mejor celular",
+    "photo": "www.iphone.com/imagen",
+    "price": 240000,
+    "stock": 50
+  },
+  {
+    "id": 3,
+    "timestamp": 1670377074837,
+    "name": "Iphone14",
+    "description": "El mejor celular",
+    "photo": "www.iphone.com/imagen",
+    "price": 240000,
+    "stock": 50
+  },
+  {
+    "id": 4,
+    "timestamp": 1670377635705,
+    "name": "Iphone14",
+    "description": "El mejor celular",
+    "photo": "www.iphone.com/imagen",
+    "price": 240000,
+    "stock": 50
+  },
+  {
+    "id": 5,
+    "timestamp": 1670377644349,
+    "name": "Iphone14",
+    "description": "El mejor celular",
+    "photo": "www.iphone.com/imagen",
+    "price": 240000,
+    "stock": 50
+  }
+]
