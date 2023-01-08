@@ -1,11 +1,12 @@
-const admin = require("firebase-admin");
-const fs = require("fs");
-const CRUDProducts = require("./CRUDProducts");
-const CRUDCart = require("./CRUDCart");
+import admin from "firebase-admin";
+import fs from "fs";
+import CRUDCart from "./CRUDCart.js";
+import CRUDProducts from "./CRUDProducts.js";
+
 const CrudProducts = new CRUDProducts();
 const CrudCart = new CRUDCart();
 
-module.exports = class Firebase {
+class Firebase {
   constructor(credentials) {
     const serviceAccount = JSON.parse(fs.readFileSync(credentials, "utf-8"));
 
@@ -19,38 +20,44 @@ module.exports = class Firebase {
   }
 
   createProduct(product) {
-    CrudProducts.create(this.dbProducts, product);
+    return CrudProducts.create(this.dbProducts, product);
   }
 
   readProducts() {
-    CrudProducts.find(this.dbProducts);
+    return CrudProducts.find(this.dbProducts);
   }
 
-  updateProduct(product, updateProduct) {
-    CrudProducts.update(this.dbProducts, product, updateProduct);
+  findProduct(idProduct) {
+    return CrudProducts.findOne(this.dbProducts, idProduct);
   }
 
-  deleteProduct(product) {
-    CrudProducts.delete(this.dbProducts, product);
+  updateProduct(idProduct, updateProduct) {
+    return CrudProducts.update(this.dbProducts, idProduct, updateProduct);
+  }
+
+  deleteProduct(idProduct) {
+    return CrudProducts.delete(this.dbProducts, idProduct);
   }
 
   createCart() {
-    CrudCart.create(this.dbCart);
+    return CrudCart.create(this.dbCart);
   }
 
-  readProductsCart(id) {
-    CrudCart.read(this.dbCart, id);
+  readProductsCart(idCart) {
+    return CrudCart.read(this.dbCart, idCart);
   }
 
   deleteCart(id) {
-    CrudCart.delete(this.dbCart, id);
+    return CrudCart.delete(this.dbCart, id);
   }
 
-  insertProductCart(id, product) {
-    CrudCart.insertProduct(this.dbCart, id, product);
+  insertProductCart(idCart, product) {
+    return CrudCart.insertProduct(this.dbCart, idCart, product);
   }
 
-  deleteProductCart(id, nameProduct) {
-    CrudCart.deleteProduct(this.dbCart, id, nameProduct);
+  deleteProductCart(idCart, idProduct) {
+    return CrudCart.deleteProduct(this.dbCart, idCart, idProduct);
   }
-};
+}
+
+export default Firebase;

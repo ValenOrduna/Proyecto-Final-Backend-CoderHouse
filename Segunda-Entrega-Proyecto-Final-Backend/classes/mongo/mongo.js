@@ -1,10 +1,11 @@
-const { MongoClient } = require("mongodb");
-const CRUDProducts = require("./CRUDProducts");
-const CRUDCart = require("./CRUDCart");
+import { MongoClient } from "mongodb";
+import CRUDProducts from "./CRUDProducts.js";
+import CRUDCart from "./CRUDCart.js";
+
 const CrudProducts = new CRUDProducts();
 const CrudCart = new CRUDCart();
 
-module.exports = class Mongo {
+class Mongo {
   constructor(uri) {
     this.client = new MongoClient(uri, {
       useNewUrlParser: true,
@@ -17,42 +18,48 @@ module.exports = class Mongo {
   }
 
   createProduct(product) {
-    CrudProducts.create(this.dbProducts, product);
+    return CrudProducts.create(this.dbProducts, product);
   }
 
   readProducts() {
-    CrudProducts.find(this.dbProducts);
+    return CrudProducts.find(this.dbProducts);
   }
 
-  updateProduct(product, updateProduct) {
-    CrudProducts.update(this.dbProducts, product, updateProduct);
+  findProduct(idProduct) {
+    return CrudProducts.findOne(this.dbProducts, idProduct);
   }
 
-  deleteProduct(product) {
-    CrudProducts.delete(this.dbProducts, product);
+  updateProduct(idProduct, updateProduct) {
+    return CrudProducts.update(this.dbProducts, idProduct, updateProduct);
+  }
+
+  deleteProduct(idProduct) {
+    return CrudProducts.delete(this.dbProducts, idProduct);
   }
 
   createCart() {
-    CrudCart.create(this.dbCart);
+    return CrudCart.create(this.dbCart);
   }
 
-  readProductsCart(id) {
-    CrudCart.read(this.dbCart, id);
+  readProductsCart(idCart) {
+    return CrudCart.read(this.dbCart, idCart);
   }
 
-  deleteCart(id) {
-    CrudCart.delete(this.dbCart, id);
+  deleteCart(idCart) {
+    return CrudCart.delete(this.dbCart, idCart);
   }
 
-  insertProductCart(id, product) {
-    CrudCart.insertProduct(this.dbCart, id, product);
+  insertProductCart(idCart, product) {
+    return CrudCart.insertProduct(this.dbCart, idCart, product);
   }
 
-  deleteProductCart(id, nameProduct) {
-    CrudCart.deleteProduct(this.dbCart, id, nameProduct);
+  deleteProductCart(idCart, idProduct) {
+    return CrudCart.deleteProduct(this.dbCart, idCart, idProduct);
   }
 
   async closeClient() {
     await this.client.close();
   }
-};
+}
+
+export default Mongo;

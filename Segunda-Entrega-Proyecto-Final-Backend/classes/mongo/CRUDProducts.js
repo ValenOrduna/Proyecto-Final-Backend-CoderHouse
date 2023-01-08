@@ -1,4 +1,6 @@
-module.exports = class CRUDProducts {
+import { ObjectId } from "mongodb";
+
+class CRUDProducts {
   async create(db, product) {
     if (
       product.name &&
@@ -7,56 +9,63 @@ module.exports = class CRUDProducts {
       product.price &&
       product.stock
     ) {
-      const insertProduct = await db.insertOne(product);
-      return console.log(insertProduct);
+      await db.insertOne(product);
+      return { operacion: "Producto añadido con exito.", producto: product };
     } else {
-      return console.log(
-        "El producto ingresado no es correcto,vuelve a ingresarlo nuevamente."
-      );
+      return {
+        error:
+          "El producto ingresado no es correcto,vuelve a ingresarlo nuevamente.",
+      };
     }
   }
 
   async find(db) {
     const products = await db.find().toArray();
-    return console.log(products);
+    return products;
   }
 
-  async update(db, product, updateProduct) {
-    if (
-      (product.name ||
-        product.description ||
-        product.photo ||
-        product.price ||
-        product.stock) &&
-      (updateProduct.name ||
-        updateProduct.description ||
-        updateProduct.photo ||
-        updateProduct.price ||
-        updateProduct.stock)
-    ) {
-      const update = await db.updateOne(product, { $set: updateProduct });
-      return console.log(update);
+  async findOne(db, idProduct) {
+    const product = await db.find({ _id: ObjectId(idProduct) }).toArray();
+    if (product) {
+      return { operacion: "Producto encontrado con exito.", producto: product };
     } else {
-      return console.log(
-        "El producto ingresado no es correcto, vuelve a ingresarlo nuevamente."
-      );
+      return {
+        error:
+          "El producto ingresado no existe ,vuelve a ingresarlo nuevamente.",
+      };
     }
   }
 
-  async delete(db, product) {
-    if (
-      product.name ||
-      product.description ||
-      product.photo ||
-      product.price ||
-      product.stock
-    ) {
-      const deleteProduct = await db.deleteOne(product);
-      return console.log(deleteProduct);
+  async update(db, idProduct, updateProduct) {
+    const update = await db.updateOne(
+      { _id: ObjectId(idProduct) },
+      { $set: updateProduct }
+    );
+    if (update) {
+      return { operacion: "Producto actualizado con exito.", producto: update };
     } else {
-      return console.log(
-        "El producto ingresado no fue encontrado, ingrese uno nuevamente."
-      );
+      return {
+        error:
+          "El producto ingresado no es correcto,vuelve a ingresarlo nuevamente.",
+      };
     }
   }
-};
+
+  async delete(db, idProduct) {
+    const deleteProduct = await db.deleteOne({ _id: ObjectId(idProduct) });
+
+    if (deleteProduct) {
+      return {
+        operacion: "Producto eliminado con exito.",
+        producto: deleteProduct,
+      };
+    } else {
+      return {
+        error:
+          "El producto ingresado no existe,vuelve a ingresarlo nuevamente.",
+      };
+    }
+  }
+}
+
+export default CRUDProducts;
