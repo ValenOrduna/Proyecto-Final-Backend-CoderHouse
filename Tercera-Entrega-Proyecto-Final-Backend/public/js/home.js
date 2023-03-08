@@ -22,5 +22,12 @@ product.addEventListener("click", (e) => {
 
 logout.addEventListener("click", (e) => {
   e.preventDefault();
-  console.log("Se deslogueo");
+  fetch("/home/logout").then((response) => {
+    if (response.status === 200) {
+      alertify.success("Te has deslogueado con exito!");
+      setTimeout(() => {
+        location.replace("/login");
+      }, 2500);
+    }
+  });
 });

@@ -4,7 +4,15 @@ import passport from "passport";
 const router = express.Router();
 
 router.get("", (req, res) => {
-  res.render("register", { title: "Curso CoderHouse Backend | Register" });
+  try {
+    if (req.session.passport.user) {
+      return res.redirect("/home");
+    }
+  } catch (err) {
+    return res.render("register", {
+      title: "Curso CoderHouse Backend | Register",
+    });
+  }
 });
 
 router.post(
@@ -13,7 +21,7 @@ router.post(
     failureRedirect: "/registerError",
   }),
   (req, res) => {
-    res.status(200).send({ Success: "User Created" });
+    return res.status(200).send({ Success: "User Created" });
   }
 );
 export default router;
