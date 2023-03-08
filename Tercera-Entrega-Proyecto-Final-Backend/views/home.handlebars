@@ -1,21 +1,24 @@
 <nav class="flex justify-between items-center text-center font-bold w-full border-b-4 border-indigo-800">
     <div class="flex justify-between items-center text-center font-bold w-[95%] mx-auto p-5">
         <div>
-            <h2 class="font-extrabold text-indigo-800 text-4xl">CODERHOUSE</h2>
+            <a href="/home">
+                <h2 class="font-extrabold text-indigo-800 text-4xl">CODERHOUSE</h2>
+            </a>
         </div>
         <div class="flex justify-center space-x-10 items-center">
-            <div>
+            <div class="flex items-end space-x-2">
                 <a href="#">
                     <img class="w-12" src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="">
                 </a>
+                <span id="countCart" class="text-xl text-indigo-800 font-extrabold">{{countCart}}</span>
             </div>
             <div>
-                <a href="">
-                    <img class="w-12" src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg" alt="">
+                <a href="/profile">
+                    <img class="w-10 rounded-full" src="./uploads/{{avatar}}" alt="">
                 </a>
             </div>
             <div>
-                <a href="">
+                <a id="logout" href="#">
                     <img class="w-12" src="https://www.pngfind.com/pngs/m/585-5857042_logout-icon-png-transparent-png.png" alt="">
                 </a>
             </div>
@@ -23,19 +26,22 @@
     </div>
 </nav>
 
-<div class="w-1/2 mx-auto text-center mt-10 space-y-10">
+<div id="product" class="w-1/2 mx-auto text-center mt-10 space-y-10">
     <h1 class="text-4xl text-indigo-500 font-extrabold">TODOS LOS PRODUCTOS</h1>
     <div class="w-full flex justify-center space-x-5 space-y-5 flex-wrap items-center">
 
         {{#each products}}
-            <div class="w-1/3 flex flex-col space-y-3 border-4 border-indigo-500 text-black">
+            <div id={{id}} class="w-1/2 flex flex-col space-y-3 border-4 border-indigo-500 text-black">
                 <img class="w-full" src={{image}} alt="">
                 <h2 class="text-indigo-700 text-xl font-bold uppercase">{{title}}</h2>
                 <p class="text-lg">{{description}}</p>
                 <p class="text-lg font-bold text-indigo-400">STOCK:{{stock}}</p>
                 <h3 class="font-bold text-xl text-orange-800">PRECIO: ${{price}}</h3>
-                <button class="p-3 w-full bg-indigo-500 font-bold uppercase">Agregar al carrito</button>
+                <button id="addCart" class="p-3 w-full bg-indigo-500 font-bold uppercase">Agregar al carrito</button>
             </div>
         {{/each}}
     </div>
 </div>
+
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<script src="js/home.js"></script>

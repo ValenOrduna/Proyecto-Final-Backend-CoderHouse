@@ -1,6 +1,7 @@
 import passport from "passport";
 import local from "passport-local";
 import User from "../models/User.js";
+import Carts from "../models/Cart.js";
 import sendEmail from "../src/helpers/sendEmail.js";
 import { createHash, isValid } from "../utils/crypt.js";
 
@@ -26,7 +27,9 @@ export const initializePassport = () => {
           };
 
           try {
-            const user = await User.create(newUser);
+            const cart = await Carts.create({ products: [] });
+            const insertUser = { ...newUser, idCart: cart._id };
+            const user = await User.create(insertUser);
             await sendEmail(newUser);
             return done(null, user);
           } catch (err) {

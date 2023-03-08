@@ -10,7 +10,6 @@ router.get("", (req, res) => {
 router.post(
   "",
   passport.authenticate("register", {
-    successRedirect: "/home",
     failureRedirect: "/registerError",
   }),
   (req, res) => {

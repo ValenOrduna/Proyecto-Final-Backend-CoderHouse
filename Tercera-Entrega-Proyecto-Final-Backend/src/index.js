@@ -8,6 +8,8 @@ import { engine } from "express-handlebars";
 import routerHome from "./routes/home.routes.js";
 import routerRegister from "./routes/register.routes.js";
 import routerLogin from "./routes/login.routes.js";
+import routerProfile from "./routes/profile.routes.js";
+import routerCart from "./routes/cart.routes.js";
 import upload from "./helpers/uploadImages.js";
 import { initializePassport } from "../passport/passport.config.js";
 
@@ -27,7 +29,6 @@ const configSession = session({
     mongoUrl: process.env.URISESSIONS,
   }),
   secret: process.env.SESSION_SECRET,
-  cookie: { maxAge: 600000 },
   resave: true,
   saveUninitialized: true,
 });
@@ -49,6 +50,9 @@ app.use(upload.single("image"));
 app.use("/home", routerHome);
 app.use("/register", routerRegister);
 app.use("/login", routerLogin);
+app.use("/profile", routerProfile);
+app.use("/cart", routerCart);
+
 const port = 8080;
 
 app.listen(port, () =>

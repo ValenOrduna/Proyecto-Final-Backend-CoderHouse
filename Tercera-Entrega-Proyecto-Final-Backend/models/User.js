@@ -10,6 +10,7 @@ const UserSchema = new mongoose.Schema({
   phone: String,
   avatar: String,
   password: String,
+  idCart: String,
 });
 
 const users = mongoose.model(collection, UserSchema);

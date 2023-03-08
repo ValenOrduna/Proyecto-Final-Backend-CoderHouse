@@ -33,5 +33,6 @@ formRegister.addEventListener("submit", (e) => {
       }, 5000);
       return;
     }
+    location.replace("home");
   });
 });
