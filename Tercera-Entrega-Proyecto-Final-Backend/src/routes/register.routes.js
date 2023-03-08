@@ -13,7 +13,7 @@ router.post(
     failureRedirect: "/registerError",
   }),
   (req, res) => {
-    res.status(300).send({ Success: "User Created" });
+    res.status(200).send({ Success: "User Created" });
   }
 );
 export default router;

@@ -11,7 +11,7 @@ router.post(
   "",
   passport.authenticate("login", { failureRedirect: "/loginError" }),
   (req, res) => {
-    res.status(300).send({ Success: "User Login" });
+    res.status(200).send({ Success: "User Login" });
   }
 );
 export default router;

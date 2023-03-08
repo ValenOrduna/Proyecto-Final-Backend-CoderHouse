@@ -2,7 +2,7 @@ import passport from "passport";
 import local from "passport-local";
 import User from "../models/User.js";
 import Carts from "../models/Cart.js";
-import sendEmail from "../src/helpers/sendEmail.js";
+import { sendEmailRegister } from "../src/helpers/sendEmail.js";
 import { createHash, isValid } from "../utils/crypt.js";
 
 const LocalStrategy = local.Strategy;
@@ -30,11 +30,30 @@ export const initializePassport = () => {
             const cart = await Carts.create({ products: [] });
             const insertUser = { ...newUser, idCart: cart._id };
             const user = await User.create(insertUser);
-            await sendEmail(newUser);
+            await sendEmailRegister(newUser);
             return done(null, user);
           } catch (err) {
             done(err);
           }
+        } catch (err) {
+          done(err);
+        }
+      }
+    )
+  );
+
+  passport.use(
+    "login",
+    new LocalStrategy(
+      {
+        usernameField: "email",
+      },
+      async (email, password, done) => {
+        try {
+          const user = await User.findOne({ email });
+          if (!user) return done(null, false);
+          if (!isValid(user, password)) return done(null, false);
+          return done(null, user);
         } catch (err) {
           done(err);
         }
@@ -54,18 +73,4 @@ export const initializePassport = () => {
       done(err);
     }
   });
-
-  passport.use(
-    "login",
-    new LocalStrategy(async (username, password, done) => {
-      try {
-        const user = await User.findOne({ email });
-        if (!user) return done(null, false);
-        if (!isValid(user, password)) return done(null, false);
-        return done(null, user);
-      } catch (err) {
-        done(err);
-      }
-    })
-  );
 };
