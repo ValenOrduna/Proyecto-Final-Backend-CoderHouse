@@ -1,0 +1,48 @@
+<div class="p-10 w-1/2 mx-auto text-center space-y-10">
+    <h1 class="text-4xl font-bold text-indigo-800 uppercase">Bienvenido, Registrate aqui!</h1>
+    <form class="flex flex-col w-1/2 mx-auto space-y-4" id="formRegister">
+
+        <div class="flex flex-col items-center text-center space-y-5 w-full">
+            <label class="font-bold text-lg uppercase" for="username">Usuario</label>
+            <input class="p-2 rounded-full border-2 border-indigo-800 pl-5 w-full" placeholder="Tu nombre de usuario" type="text" name="username">
+        </div>
+
+        <div class="flex flex-col items-center text-center space-y-3 w-full">
+            <label class="font-bold text-lg uppercase" for="email">Email</label>
+            <input class="p-2 rounded-full border-2 border-indigo-800 pl-5 w-full" placeholder="Tu email" type="email" name="email">
+        </div>
+
+        <div class="flex flex-col items-center text-center space-y-3 w-full">
+            <label class="font-bold text-lg uppercase" for="age">Edad</label>
+            <input class="p-2 rounded-full border-2 border-indigo-800 pl-5 w-full" placeholder="Tu edad" type="number" name="age">
+        </div>
+
+        <div class="flex flex-col items-center text-center space-y-3 w-full">
+            <label class="font-bold text-lg uppercase" for="address">Direccion</label>
+            <input class="p-2 rounded-full border-2 border-indigo-800 pl-5 w-full" placeholder="Tu direccion" type="text" name="address">
+        </div>
+
+        <div class="flex flex-col items-center text-center space-y-3 w-full">
+            <label class="font-bold text-lg uppercase" for="inputPhone">Telefono</label>
+            <input class="p-2 rounded-full border-2 border-indigo-800 pl-5" placeholder="Tu telefono" type="tel" name="inputPhone" id="phone">
+        </div>
+
+        <div class="flex flex-col items-center text-center space-y-3 w-full">
+            <label class="font-bold text-lg uppercase" for="image">Foto/Avatar</label>
+            <input id="image" class="p-2 rounded-full border-2 border-indigo-800 pl-5 w-full" placeholder="Tu foto/avatar" type="file" name="image" id="image">
+        </div>
+
+        <div class="flex flex-col items-center text-center space-y-3 w-full">
+            <label class="font-bold text-lg uppercase" for="password">Contraseña</label>
+            <input class="p-2 rounded-full border-2 border-indigo-800 pl-5 w-full" placeholder="Tu contraseña" type="password" name="password">
+        </div>
+
+        <div class="flex flex-col items-center text-center space-y-3 w-full">
+            <label class="font-bold text-lg uppercase" for="repeat_password">Repetir Contraseña</label>
+            <input class="p-2 rounded-full border-2 border-indigo-800 pl-5 w-full" placeholder="Repite la contraseña" type="password" name="repeat_password">
+        </div>
+        <div id="alert"></div>
+        <input class="p-4 rounded-full bg-indigo-800 text-white cursor-pointer font-bold uppercase" value="Registrarse" type="submit" >
+    </form>
+</div>
+<script src="js/register.js"></script>
