@@ -11,6 +11,7 @@ import routerRegister from "./routes/register.routes.js";
 import routerLogin from "./routes/login.routes.js";
 import routerProfile from "./routes/profile.routes.js";
 import routerCart from "./routes/cart.routes.js";
+import routerProducts from "./routes/products.routes.js";
 import upload from "./helpers/uploadImages.js";
 import { initializePassport } from "../passport/passport.config.js";
 
@@ -78,3 +79,4 @@ app.use("/register", routerRegister);
 app.use("/login", routerLogin);
 app.use("/profile", routerProfile);
 app.use("/cart", routerCart);
+app.use("/api/productos", routerProducts);
