@@ -1,6 +1,7 @@
 import Product from "../../models/Product.js";
 import User from "../../models/User.js";
 import Carts from "../../models/Cart.js";
+import logger from "../../utils/logger.js";
 
 const home = async (req, res) => {
   try {
@@ -32,6 +33,7 @@ const home = async (req, res) => {
 
 const logout = (req, res) => {
   req.session.destroy();
+  logger.info("Usuario Logueado Correctamente");
   return res.status(200).json({ success: "Session has been destroyed" });
 };
 

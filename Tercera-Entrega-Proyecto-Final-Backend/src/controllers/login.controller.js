@@ -1,3 +1,5 @@
+import logger from "../../utils/logger.js";
+
 const login = (req, res) => {
   try {
     if (req.session.passport.user) {
