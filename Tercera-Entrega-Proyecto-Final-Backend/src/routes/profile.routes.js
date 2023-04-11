@@ -1,10 +1,8 @@
 import express from "express";
-import users from "../../models/User.js";
+import { profile } from "../controllers/profile.controller.js";
+
 const router = express.Router();
 
-router.get("", async (req, res) => {
-  const user = await users.findById(req.session.passport.user);
-  res.render("profile", user);
-});
+router.get("", profile);
 
 export default router;
