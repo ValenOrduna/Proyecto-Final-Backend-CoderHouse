@@ -1,4 +1,4 @@
-import Product from "../../models/Product.js";
+import { MongoProduct } from "../../models/mongoSchema.js";
 import logger from "../../utils/logger.js";
 
 const products = (req, res) => {
@@ -7,7 +7,7 @@ const products = (req, res) => {
 
 const addProduct = async (req, res) => {
   const { title, description, price, stock, image } = req.body;
-  const newProduct = await Product.create({
+  const newProduct = await MongoProduct.create({
     image,
     title,
     description,

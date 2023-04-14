@@ -1,11 +1,13 @@
-import Product from "../../models/Product.js";
-import User from "../../models/User.js";
-import Carts from "../../models/Cart.js";
+import {
+  MongoProduct,
+  MongoUser,
+  MongoCart,
+} from "../../models/mongoSchema.js";
 import logger from "../../utils/logger.js";
 
 const home = async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await MongoProduct.findAll();
     const cleanProducts = [];
     products.forEach((product) => {
       const newProduct = {
@@ -18,8 +20,8 @@ const home = async (req, res) => {
       };
       cleanProducts.push(newProduct);
     });
-    const user = await User.findById(req.session.passport.user);
-    const cart = await Carts.findById(user.idCart);
+    const user = await MongoUser.find(req.session.passport.user);
+    const cart = await MongoCart.find(user.idCart);
     res.render("home", {
       title: "Curso CoderHouse Backend | Home",
       products: cleanProducts,
