@@ -1,13 +1,11 @@
-import {
-  MongoProduct,
-  MongoUser,
-  MongoCart,
-} from "../../models/mongoSchema.js";
+import UserDAO from "../persistence/DAOS/UserDAO.js";
+import ProductDAO from "../persistence/daos/ProductDAO.js";
+import CartDAO from "../persistence/daos/CartDAO.js";
 import logger from "../../utils/logger.js";
 
 const home = async (req, res) => {
   try {
-    const products = await MongoProduct.findAll();
+    const products = await ProductDAO.findAll();
     const cleanProducts = [];
     products.forEach((product) => {
       const newProduct = {
@@ -20,8 +18,8 @@ const home = async (req, res) => {
       };
       cleanProducts.push(newProduct);
     });
-    const user = await MongoUser.find(req.session.passport.user);
-    const cart = await MongoCart.find(user.idCart);
+    const user = await UserDAO.find(req.session.passport.user);
+    const cart = await CartDAO.find(user.idCart);
     res.render("home", {
       title: "Curso CoderHouse Backend | Home",
       products: cleanProducts,

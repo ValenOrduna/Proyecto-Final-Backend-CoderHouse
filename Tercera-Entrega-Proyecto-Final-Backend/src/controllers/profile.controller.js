@@ -1,7 +1,7 @@
-import { MongoUser } from "../../models/mongoSchema.js";
+import UserDAO from "../persistence/DAOS/UserDAO.js";
 
 const profile = async (req, res) => {
-  const user = await MongoUser.find(req.session.passport.user);
+  const user = await UserDAO.find(req.session.passport.user);
   res.render("profile", user);
 };
 

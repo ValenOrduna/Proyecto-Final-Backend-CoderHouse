@@ -1,3 +1,4 @@
+import UserDAO from "../persistence/daos/UserDAO.js";
 import logger from "../../utils/logger.js";
 
 const register = (req, res) => {

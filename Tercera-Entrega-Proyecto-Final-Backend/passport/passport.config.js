@@ -1,7 +1,7 @@
 import passport from "passport";
 import local from "passport-local";
-import User from "../models/User.js";
-import Carts from "../models/Cart.js";
+import UserDAO from "../src/persistence/daos/UserDAO.js";
+import CartDAO from "../src/persistence/daos/CartDAO.js";
 import { sendEmailRegister } from "../src/helpers/sendEmail.js";
 import { createHash, isValid } from "../utils/crypt.js";
 
@@ -14,7 +14,7 @@ export const initializePassport = () => {
       { passReqToCallback: true },
       async (req, username, password, done) => {
         try {
-          const user = await User.findOne({ username });
+          const user = await UserDAO.findByAtributte("username", username);
           if (user) return done(null, false);
           const newUser = {
             username: username,
@@ -27,9 +27,9 @@ export const initializePassport = () => {
           };
 
           try {
-            const cart = await Carts.create({ products: [] });
-            const insertUser = { ...newUser, idCart: cart._id };
-            const user = await User.create(insertUser);
+            const cart = await CartDAO.create({ products: [] });
+            const insertUser = { ...newUser, idCart: cart.id };
+            const user = await UserDAO.create(insertUser);
             await sendEmailRegister(newUser);
             return done(null, user);
           } catch (err) {
@@ -50,7 +50,7 @@ export const initializePassport = () => {
       },
       async (email, password, done) => {
         try {
-          const user = await User.findOne({ email });
+          const user = await UserDAO.findByAtributte("email", email);
           if (!user) return done(null, false);
           if (!isValid(user, password)) return done(null, false);
           return done(null, user);
@@ -62,13 +62,13 @@ export const initializePassport = () => {
   );
 
   passport.serializeUser((user, done) => {
-    done(null, user._id);
+    done(null, user.id);
   });
 
   passport.deserializeUser(async (id, done) => {
     try {
-      const userId = await User.findById(id);
-      done(null, userId._id);
+      const userId = await UserDAO.find(id);
+      done(null, userId.id);
     } catch (err) {
       done(err);
     }

@@ -1,8 +1,5 @@
 import express from "express";
-import session from "express-session";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
-import MongoStore from "connect-mongo";
 import passport from "passport";
 import { engine } from "express-handlebars";
 import cluster from "cluster";
@@ -14,6 +11,8 @@ import routerCart from "./routes/cart.routes.js";
 import routerProducts from "./routes/products.routes.js";
 import upload from "./helpers/uploadImages.js";
 import { initializePassport } from "../passport/passport.config.js";
+import getConfigSession from "./persistence/factories/SessionFactory.js";
+import connectDb from "./persistence/factories/DBFactory.js";
 
 dotenv.config();
 
@@ -44,21 +43,9 @@ if (MODE === "CLUSTER") {
   );
 }
 
-mongoose.set("strictQuery", true);
+const db = connectDb();
 
-mongoose.connect(process.env.URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-const configSession = session({
-  store: MongoStore.create({
-    mongoUrl: process.env.URISESSIONS,
-  }),
-  secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true,
-});
+const configSession = getConfigSession(db);
 
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");

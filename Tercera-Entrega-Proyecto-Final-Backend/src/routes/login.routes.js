@@ -8,7 +8,9 @@ router.get("", login);
 
 router.post(
   "",
-  passport.authenticate("login", { failureRedirect: "/loginError" }),
+  passport.authenticate("login", {
+    failureRedirect: "/loginError",
+  }),
   postLogin
 );
 export default router;

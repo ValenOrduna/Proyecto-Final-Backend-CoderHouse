@@ -1,4 +1,4 @@
-import { MongoProduct } from "../../models/mongoSchema.js";
+import ProductDAO from "../persistence/daos/ProductDAO.js";
 import logger from "../../utils/logger.js";
 
 const products = (req, res) => {
@@ -7,7 +7,7 @@ const products = (req, res) => {
 
 const addProduct = async (req, res) => {
   const { title, description, price, stock, image } = req.body;
-  const newProduct = await MongoProduct.create({
+  const newProduct = await ProductDAO.create({
     image,
     title,
     description,
