@@ -38,6 +38,11 @@ class ManageDAOFirebase {
     const doc = await docRef.get();
     return { id: doc.id, ...doc.data() };
   };
+
+  delete = async (id) => {
+    const deleteData = await this.collection.doc(id).delete();
+    return deleteData;
+  };
 }
 
 export default ManageDAOFirebase;

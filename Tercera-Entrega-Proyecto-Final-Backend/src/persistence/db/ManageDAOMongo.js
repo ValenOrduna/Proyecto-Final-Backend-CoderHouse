@@ -43,6 +43,11 @@ class ManageDAOMongo {
     }
     return result;
   };
+
+  delete = async (id) => {
+    const deleteData = await this.collection.deleteOne({ _id: id });
+    return deleteData;
+  };
 }
 
 export default ManageDAOMongo;

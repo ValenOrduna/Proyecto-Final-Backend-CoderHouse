@@ -13,6 +13,8 @@ import upload from "./helpers/uploadImages.js";
 import { initializePassport } from "../passport/passport.config.js";
 import getConfigSession from "./persistence/factories/SessionFactory.js";
 import connectDb from "./persistence/factories/DBFactory.js";
+import { graphqlHTTP } from "express-graphql";
+import schemaGraphQL from "../graphql/schemaGraphQl.js";
 
 dotenv.config();
 
@@ -60,10 +62,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(upload.single("image"));
-
 app.use("/home", routerHome);
 app.use("/register", routerRegister);
 app.use("/login", routerLogin);
 app.use("/profile", routerProfile);
 app.use("/cart", routerCart);
 app.use("/api/productos", routerProducts);
+
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: schemaGraphQL,
+    graphiql: true,
+  })
+);
