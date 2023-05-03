@@ -22,7 +22,7 @@ product.addEventListener("click", (e) => {
 
 logout.addEventListener("click", (e) => {
   e.preventDefault();
-  fetch("/home/logout").then((response) => {
+  fetch("/logout").then((response) => {
     if (response.status === 200) {
       alertify.success("Te has deslogueado con exito!");
       setTimeout(() => {

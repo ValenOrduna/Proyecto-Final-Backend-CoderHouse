@@ -4,7 +4,7 @@ import logger from "../../utils/logger.js";
 const register = (req, res) => {
   try {
     if (req.session.passport.user) {
-      return res.redirect("/home");
+      return res.redirect("/");
     }
   } catch (err) {
     return res.render("register", {

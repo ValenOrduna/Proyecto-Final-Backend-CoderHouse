@@ -15,7 +15,8 @@ class ManageDAOFirebase {
     if (!doc.exists) {
       return null;
     }
-    return { id: doc.id, ...doc.data() };
+    const data = { id: doc.id, ...doc.data() };
+    return data;
   };
 
   findByAtributte = async (data, find) => {

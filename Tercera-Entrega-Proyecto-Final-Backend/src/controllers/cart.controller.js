@@ -41,8 +41,7 @@ const addProduct = async (req, res) => {
       .json({ success: "Product Added", countCart: cart.products.length });
   }
   const newProducts = [...cart.products, { id: req.body.id, quantity: 1 }];
-
-  await CartDAO.update({ _id: cart._id }, { products: newProducts });
+  await CartDAO.update(cart.id, { products: newProducts });
   return res
     .status(200)
     .json({ success: "Product Added", countCart: newProducts.length });
@@ -62,6 +61,9 @@ const makeOrder = async (req, res) => {
       price: findProduct.price,
       quantity: product.quantity,
     };
+    await ProductDAO.update(product.id, {
+      stock: findProduct.stock - product.quantity,
+    });
     productsCart.push(newProduct);
   });
 
@@ -76,7 +78,7 @@ const makeOrder = async (req, res) => {
     phoneWpp: "+5493329636671",
     messageWpp: sendEmail,
   });
-  await CartDAO.update({ _id: cart.id }, { products: [] });
+  await CartDAO.update(cart.id, { products: [] });
   return res.status(200).json({ success: "Order successfully!" });
 };
 

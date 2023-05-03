@@ -4,8 +4,13 @@ class ManageDAOMongo {
   }
 
   findAll = async () => {
-    const result = await this.collection.find();
-    return result;
+    let result = await this.collection.find().lean();
+    let resultClean = result.map((data) => {
+      data.id = data._id.toString();
+      delete data._id;
+      return data;
+    });
+    return resultClean;
   };
 
   find = async (find) => {
@@ -35,8 +40,8 @@ class ManageDAOMongo {
     return result;
   };
 
-  update = async (find, data) => {
-    const result = await this.collection.updateOne(find, data);
+  update = async (id, data) => {
+    const result = await this.collection.updateOne({ _id: id }, data);
     if (result) {
       result.id = result._id;
       delete result._id;

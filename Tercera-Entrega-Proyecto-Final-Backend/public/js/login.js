@@ -21,6 +21,6 @@ formLogin.addEventListener("submit", (e) => {
       }, 5000);
       return;
     }
-    location.replace("/home");
+    location.replace("/");
   });
 });

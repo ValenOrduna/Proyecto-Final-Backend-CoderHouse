@@ -6,7 +6,7 @@ makerOrder.addEventListener("click", (e) => {
       alertify.alert("Pedido realizado con exito!", () => {
         alertify.message("Pedido Finalizado!");
         setTimeout(() => {
-          location.replace("/home");
+          location.replace("/");
         }, 2000);
       });
     }

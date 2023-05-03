@@ -6,23 +6,11 @@ import logger from "../../utils/logger.js";
 const home = async (req, res) => {
   try {
     const products = await ProductDAO.findAll();
-    const cleanProducts = [];
-    products.forEach((product) => {
-      const newProduct = {
-        id: product._id,
-        image: product.image,
-        title: product.title,
-        description: product.description,
-        stock: product.stock,
-        price: product.price,
-      };
-      cleanProducts.push(newProduct);
-    });
     const user = await UserDAO.find(req.session.passport.user);
     const cart = await CartDAO.find(user.idCart);
     res.render("home", {
       title: "Curso CoderHouse Backend | Home",
-      products: cleanProducts,
+      products: products,
       avatar: user.avatar,
       countCart: cart.products.length,
     });

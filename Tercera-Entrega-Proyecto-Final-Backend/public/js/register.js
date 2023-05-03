@@ -37,12 +37,9 @@ formRegister.addEventListener("submit", (e) => {
           "El usuario ingresado ya esta creado! Vuelve a ingresar uno nuevamente."
         );
       }
-      location.replace("home");
+      return location.replace("/");
     });
   }
-  return createAlert(
-    "Algo anda mal! Hay datos que no son correctos. Vuelve a ingresarlos nuevamente."
-  );
 });
 
 const createAlert = (text) => {

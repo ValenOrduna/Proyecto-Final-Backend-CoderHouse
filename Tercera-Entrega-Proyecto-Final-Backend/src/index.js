@@ -62,7 +62,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(upload.single("image"));
-app.use("/home", routerHome);
+app.use("/", routerHome);
 app.use("/register", routerRegister);
 app.use("/login", routerLogin);
 app.use("/profile", routerProfile);
